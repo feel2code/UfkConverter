@@ -10,9 +10,9 @@ import pandas as pd
 
 # File sources
 NEW_FILE_NAME = randint(1, 9)
-SOURCEFILE = 'VT_BD_SF.xls'
-BDOUTPUT = f'1200{NEW_FILE_NAME}ABC.BD0'
-VTOUT = f'1200{NEW_FILE_NAME}ABC.VT0'
+SOURCEFILE = 'INPUT/VT_BD_SF.xls'
+BDOUTPUT = f'OUTPUT/1200{NEW_FILE_NAME}ABC.BD0'
+VTOUT = f'OUTPUT/1200{NEW_FILE_NAME}ABC.VT0'
 
 
 def panda_to_date(pandate):
@@ -49,7 +49,7 @@ VTSUM_LIST = list(
 
 VTOPER = vtsheet.iloc[42:60, 6:]
 VTNOPER = vtsheet.iloc[61:, 6:]
-with open(VTOUT, "w") as vtout:
+with open(VTOUT, "w", encoding='windows-1251') as vtout:
     with contextlib.redirect_stdout(vtout):
         print(VTHEADER)
         print(f"FROM|{VTFROM_LIST}|")
@@ -100,7 +100,7 @@ vtout.close()
 BDHEADER = "FK|TXBD120101|Converter_PAY_UFK|1.5.4| ТЗ|"
 bdsheet = pd.read_excel(
     SOURCEFILE, sheet_name="12000ABC.BD0", convert_float=False)
-bdout = open(BDOUTPUT, "w")
+bdout = open(BDOUTPUT, "w", encoding='windows-1251')
 print(BDHEADER, file=bdout)
 from_list = "|".join(
     map(lambda x: "" if str(x) == "nan" else str(
@@ -239,11 +239,11 @@ bdout.close()
 
 def remove_line(file_name, lineskip):
     """ Removes a given line from a file """
-    with open(file_name, 'r') as read_file:
+    with open(file_name, 'r', encoding='windows-1251') as read_file:
         lines = read_file.readlines()
 
     currentline = 1
-    with open(file_name, 'w') as write_file:
+    with open(file_name, 'w', encoding='windows-1251') as write_file:
         for line in lines:
             if currentline == lineskip:
                 pass

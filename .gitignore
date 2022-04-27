@@ -2,3 +2,5 @@ VT_BD_SF.xls
 venv/
 .DS_Store
 12*
+INPUT/*
+OUTPUT/*
